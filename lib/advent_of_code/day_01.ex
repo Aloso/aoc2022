@@ -15,15 +15,10 @@ defmodule AdventOfCode.Day01 do
     |> Enum.sum()
   end
 
-  def sum_calories(group) do
+  defp sum_calories(group) do
     group
     |> String.split("\n", trim: true)
-    |> Enum.map(
-      &case Float.parse(&1) do
-        {value, ""} -> value
-        {_, error} -> raise(error)
-      end
-    )
+    |> Enum.map(&String.to_integer/1)
     |> Enum.sum()
   end
 end
