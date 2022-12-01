@@ -1,14 +1,14 @@
 defmodule AdventOfCode.Day01 do
   def part1(input) do
     input
-    |> String.split("\n\n")
+    |> String.split("\n\n", trim: true)
     |> Enum.map(&sum_calories/1)
     |> Enum.max()
   end
 
   def part2(input) do
     input
-    |> String.split("\n\n")
+    |> String.split("\n\n", trim: true)
     |> Enum.map(&sum_calories/1)
     |> Enum.sort(:desc)
     |> Enum.take(3)
@@ -17,9 +17,13 @@ defmodule AdventOfCode.Day01 do
 
   def sum_calories(group) do
     group
-    |> String.trim()
-    |> String.split("\n")
-    |> Enum.map(&elem(Float.parse(&1), 0))
+    |> String.split("\n", trim: true)
+    |> Enum.map(
+      &case Float.parse(&1) do
+        {value, ""} -> value
+        {_, error} -> raise(error)
+      end
+    )
     |> Enum.sum()
   end
 end
