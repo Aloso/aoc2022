@@ -72,12 +72,7 @@ defmodule AdventOfCode.Input do
     |> Path.expand()
   end
 
-  defp default_year do
-    case :calendar.local_time() do
-      {{y, 12, _}, _} -> y
-      {{y, _, _}, _} -> y - 1
-    end
-  end
+  defp default_year, do: 2022
 
   defp config, do: Application.get_env(:advent_of_code, __MODULE__)
   defp allow_network?, do: Keyword.get(config(), :allow_network?, false)
